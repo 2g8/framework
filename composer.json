@@ -1,0 +1,20 @@
+{
+  "name": "teaphp/framework",
+  "description": "The Teaphp Framework is an easy to use,super fast framework for modern PHP(7+).",
+  "keywords": ["framework", "teaphp"],
+  "license": "MIT",
+  "homepage": "https://souponly.com",
+  "authors": [
+      {
+          "name": "Bagheera JH Ding",
+          "email": "ding@gong.si"
+      }
+  ],
+  "version": "1.1.0",
+  "config": {
+    "preferred-install": "dist"
+  },
+  "require": {
+    "php": "^7.0|^8.0"
+  }
+}
