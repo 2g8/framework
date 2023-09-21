@@ -33,7 +33,9 @@ class tea_mysql implements idb
 				return $this->affected_rows();
 			} elseif ($cmd === 'INSERT') {
 				return $this->insert_id();
-			}
+			}else{
+                return new mysqlirecord($res);
+            }
 		}
 	}
 	

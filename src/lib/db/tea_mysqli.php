@@ -36,7 +36,9 @@ class tea_mysqli extends mysqli implements idb
 				return $this->conn->affected_rows;
 			} elseif ($cmd === 'INSERT') {
 				return $this->conn->insert_id;
-			}
+			}else{
+                return new mysqlirecord($res);
+            }
 		}
     }
     
