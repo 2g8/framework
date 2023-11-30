@@ -5,6 +5,7 @@
  */
 defined('TEA_START_TIME') or define('TEA_START_TIME',microtime(true));
 defined('TEA_START_MEM') or define('TEA_START_MEM',memory_get_usage());
+$GLOBALS['TEA_QUERY_NUMS'] = 0; //数据库查询次数
 
 /**
  * Get the framework path.
@@ -12,21 +13,23 @@ defined('TEA_START_MEM') or define('TEA_START_MEM',memory_get_usage());
 defined('TEA_PATH') or define('TEA_PATH', dirname(__FILE__));
 defined('APP_PATH') or die('MUST define APP_PATH to your app root.');
 
+
 //设置时区
 date_default_timezone_set('PRC');
 
 class tea
 {
-	public $load,$conf,$model,$db,$view,$debug,$session;
+	public $load,$conf,$model,$db,$view,$debug,$uri,$session;
     
     public function __construct($config = []){
     	//初始化loader
     	require(TEA_PATH."/core/load.php");
         $this->load = new load;
         //初始化conf
-        $this->conf = $this->load->classes('core.conf',TEA_PATH,$config);
+        $this->conf = $this->load->classes('core.conf', TEA_PATH, $config);
+        if(isset($this->conf->timezone)) date_default_timezone_set($this->conf->timezone);
         //初始化debug
-        $this->debug = $this->load->classes('core.debug',TEA_PATH);
+        $this->debug = $this->load->classes('core.debug', TEA_PATH);
 		if($this->conf->mode == "debug"){
         	define('DEBUG', 'on');error_reporting(E_ALL&~E_NOTICE);
         	if($this->conf->reloadr == true){
@@ -103,7 +106,7 @@ class tea
 		        }
 		        break;
 		    default:
-		        $this->load->file($name);
+		        $this->load->file($name, APP_PATH);
 		}
 	}
 	
@@ -158,12 +161,23 @@ class tea
     public static function getTeapath(){
         return TEA_PATH;
     }
-    //框架性能测试benchmark
+    //框架性能
     public static function benchmark(){
+
     	//print_r(get_declared_classes());
     	//print_r(get_defined_functions());
     	//print_r(get_included_files());
         return round(microtime(true)-TEA_START_TIME,10);
+    }
+    //页面性能
+    public static function performance( $visible = false )
+    {
+        $stat = sprintf('本页共耗时 %.3f 秒，查询数据库 %d 次，使用 %.2fMB 内存',
+            round(microtime(true)-TEA_START_TIME,10),
+            $GLOBALS['TEA_QUERY_NUMS'],
+            memory_get_peak_usage() / 1024 / 1024
+        );
+        echo $visible ? $stat : "<!-- {$stat} -->";
     }
 	
 }

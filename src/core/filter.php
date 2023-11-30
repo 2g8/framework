@@ -37,7 +37,7 @@ class filter
 	{
 		if (is_array($string))
 		{
-			$string = array_map(array('self', 'xss'), $string);
+			$string = array_map(array('filter', 'xss'), $string);
 		}
 		else 
 		{
@@ -53,7 +53,7 @@ class filter
 	
 	static function _strip_tags($string)
 	{
-		return preg_replace_callback("|(<)(/?)(\w+)([^>]*)(>)|", array('self', '_strip_attrs'), $string);
+		return preg_replace_callback("|(<)(/?)(\w+)([^>]*)(>)|", array('filter', '_strip_attrs'), $string);
 	}
 	
 	static function _strip_attrs($matches)

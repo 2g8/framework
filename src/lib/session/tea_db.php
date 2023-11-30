@@ -78,7 +78,7 @@ class tea_db extends session_apt
                                   PRIMARY KEY (`sessionid`),
                                   KEY `lastvisit` (`lastvisit`),
                                   KEY `isnull` (`isnull`)
-                                ) ENGINE=MEMORY DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+                                ) ENGINE=MEMORY DEFAULT CHARSET=utf8mb4 ROW_FORMAT=FIXED;
         ";
         $this->db->query($sql_session_table);
     }

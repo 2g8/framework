@@ -10,7 +10,7 @@
           "email": "ding@gong.si"
       }
   ],
-  "version": "1.1.0",
+  "version": "1.1.1",
   "config": {
     "preferred-install": "dist"
   },

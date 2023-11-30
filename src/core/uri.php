@@ -46,6 +46,7 @@ class uri
     }
 
     function _mkurl_default($cap  = array()){
+        $url = '';
         $cap = !empty($cap) ? $cap : $this->router();
         if(!empty($cap['controller']) && $cap['controller'] != $this->_config['default_controller']){
             $url .= '&'.$this->_config['para_controller'].'='.$cap['controller'];
@@ -97,6 +98,9 @@ class uri
     }
 
     function _mkurl_rewrite($cap  = array()){
+        $controller_url = '';
+        $action_url = '';
+        $param_url = '';
         $cap = !empty($cap) ? $cap : $this->router();
         if(!empty($cap['params'])){
             ksort($cap['params']);
@@ -344,10 +348,10 @@ class uri
             $this->_config['para_action'] = 'a';
 
         if(empty($params)){
-            $params = array();
-            $params = array_merge($params,$_GET);
+            $params = [];
+            $params = $params + $_GET;
         }else{
-            $params = array_merge($params,$_GET);
+            $params = $params + $_GET;
         }
 
         if(!empty($params)){

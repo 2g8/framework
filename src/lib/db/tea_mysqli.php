@@ -28,6 +28,9 @@ class tea_mysqli extends mysqli implements idb
         $this->conn->real_escape_string($sql);
         $res = $this->conn->query($sql) or debug::error('SQL Line Error',$this->conn->error."<hr/>$sql");
         if(!$res) debug::error('SQL Line Error',$this->error."<hr/>$sql");
+        if(strpos($sql,'session') === false){
+            $GLOBALS['TEA_QUERY_NUMS'] += 1; //ÅÅ³ýµôsession²Ù×÷Êý¾Ý¿â
+        }
         if ($res) {
 			$cmd = trim(strtoupper(substr($sql, 0, strpos($sql, ' '))));
 			if ($cmd === 'SELECT') {

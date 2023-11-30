@@ -1,5 +1,6 @@
 <?php
 
+#[AllowDynamicProperties]
 class model
 {
 	public $db;
@@ -18,6 +19,8 @@ class model
 
 	public $create_sql='';	
 	public $_data=array();
+
+    public $db_apt;
 
 	function __construct($teaframework = null)
 	{
@@ -43,7 +46,7 @@ class model
 	{
 		return new record($object_id,$this->db,$this->table,$this->pk,$where,$this->select);
 	}
-	
+
 	public final function gets($params,&$pager=null)
 	{
 	    if(empty($params)) return false;

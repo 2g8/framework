@@ -65,9 +65,12 @@ class load
     }
     
     protected static function _fileuri($name, $path){
-    	$postfix = array('.php','.func.php','.class.php');
+    	$postfix = array('.php');
 		foreach ($postfix as $pfix){
-			if (file_exists($path.DIRECTORY_SEPARATOR.$name.$pfix)) return $path.DIRECTORY_SEPARATOR.$name.$pfix;
+            //var_dump($path.DIRECTORY_SEPARATOR.$name.$pfix);
+			//if (file_exists($path.DIRECTORY_SEPARATOR.$name.$pfix)) {
+                return $path.DIRECTORY_SEPARATOR.$name.$pfix;
+            //}
 		}
     }
     
@@ -75,7 +78,9 @@ class load
 		foreach (array(TEA_PATH,TEA_PATH.'/core',TEA_PATH.'/lib',APP_PATH,APP_PATH.'/controller',APP_PATH.'/model',APP_PATH.'/lib',) as $path){
 			$postfix = array('.php','.func.php','.class.php');
 			foreach ($postfix as $pfix){
-				if (file_exists($path.DIRECTORY_SEPARATOR.$name.$pfix)) return $path.DIRECTORY_SEPARATOR.$name.$pfix;
+				if (file_exists($path.DIRECTORY_SEPARATOR.$name.$pfix)) {
+                    return $path.DIRECTORY_SEPARATOR.$name.$pfix;
+                }
 			}
 		}
     }

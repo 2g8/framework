@@ -15,12 +15,9 @@ class session_apt
 		if (!isset($instances[$name]))
 		{
 			$class = $name;
-			if(!class_exists($class))
-			{
-				$path = dirname(__FILE__).DIRECTORY_SEPARATOR.$name.'.php';
-				if (!file_exists($path)) debug::error('Session Driver Error',"Session Driver <b>$name</b> could not loaded.");
-				require_once($path);
-			}
+            $path = dirname(__FILE__).DIRECTORY_SEPARATOR.$name.'.php';
+            if (!file_exists($path)) debug::error('Session Driver Error',"Session Driver <b>$name</b> could not loaded.");
+            require_once($path);
 			$instances[$name] = new $class($options);
 		}
 		return $instances[$name];

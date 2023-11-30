@@ -14,6 +14,8 @@ class teamplate
 			$_vars = [],
             $htmlcompress = false,
             $reloadr = false;
+
+    public $tplext,$cache_dir,$left_delimiter,$right_delimiter,$dir,$file;
 	       
     function __construct()
     {
@@ -181,7 +183,7 @@ class teamplate
 		$str = preg_replace("/\{(.+?)\-\-\}/","<?php \\1--; ?>",$str);
 		$str = preg_replace ( "/\{loop\s+(\S+)\s+(\S+)\}/", "<?php \$teamplate_n=1;if(is_array(\\1)) foreach(\\1 AS \\2) { ?>", $str );
 		$str = preg_replace ( "/\{loop\s+(\S+)\s+(\S+)\s+(\S+)\}/", "<?php \$teamplate_n=1; if(is_array(\\1)) foreach(\\1 AS \\2 => \\3) { ?>", $str );
-		$str = preg_replace ( "/\{\/loop\}/", "<?php \$teamplate_n++;}unset(\$teamplate_n); ?>", $str );
+		$str = preg_replace ( "/\{\/loop\}/", "<?php \$teamplate_n++;}//unset(\$teamplate_n); ?>", $str );
 		$str = preg_replace ( "/\{([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff:]*\(([^{}]*)\))\}/", "<?php echo \\1;?>", $str );
 		$str = preg_replace ( "/\{\\$([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff:]*\(([^{}]*)\))\}/", "<?php echo \\1;?>", $str );
 		$str = preg_replace ( "/\{(\\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)\}/", "<?php echo \\1;?>", $str );

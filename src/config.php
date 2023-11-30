@@ -3,7 +3,9 @@
 return array(
 	'mode' => 'run', 									// 应用程序模式:run,debug，默认为运行模式，
     'reloadr' => false,                                 // 代码修改自动刷新页面,mode=debug时才生效
-	
+
+    'timezone' => 'Asia/Shanghai',                      // 设置时区
+
 	'app' => array(										// 应用配置
 		'controller_path' => APP_PATH.'/controller', 	// 用户控制器程序的路径定义
 		'model_path' => APP_PATH.'/model', 				// 用户模型程序的路径定义

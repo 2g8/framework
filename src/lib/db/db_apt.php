@@ -1,5 +1,6 @@
 <?php
 
+#[AllowDynamicProperties]
 class db_apt
 {
     static $error_call='';
@@ -221,6 +222,7 @@ class db_apt
         $this->limit($offset.','.$this->page_size);
         $fastsql="select {$this->union_pk} from {$this->table} {$this->where} {$this->order} {$this->limit}";
         $rs = $this->db->query($fastsql);
+        $strid = '';
         foreach ($rs->fetchall() as $ids){
 			$strid .= $ids[$this->pk].',';
         }

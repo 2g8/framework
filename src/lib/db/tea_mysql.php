@@ -25,6 +25,9 @@ class tea_mysql implements idb
 	function query($sql)
 	{
 		$res = mysql_query($sql,$this->conn) or debug::error('SQL Line Error',mysql_error($this->conn)."<hr/>$sql");
+        if(strpos($sql,'session') === false){
+            $GLOBALS['TEA_QUERY_NUMS'] += 1; //ÅÅ³ýµôsession²Ù×÷Êý¾Ý¿â
+        }
 		if ($res) {
 			$cmd = trim(strtoupper(substr($sql, 0, strpos($sql, ' '))));
 			if ($cmd === 'SELECT') {

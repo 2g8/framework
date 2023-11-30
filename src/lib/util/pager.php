@@ -2,6 +2,8 @@
 //////////////////////////////////////////////////////////////////////
 // 分页类，可配置分页模版
 //////////////////////////////////////////////////////////////////////
+
+#[AllowDynamicProperties]
 class pager
 {
 	//初始化变量及配置
@@ -58,7 +60,11 @@ class pager
         $this->offset = ($this->pagenow-1) * $this->pagesize;
 
         //根据浏览器语言,自动设置翻页文字
-        $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 4);
+        if(isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])){
+            $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 4);
+        }else{
+            $lang = 'zh-cn';
+        }
         if (preg_match("/zh-c/i", $lang)){
             $this->str_firstpage = '首页';$this->str_prevpage = '上一页';$this->str_nextpage = '下一页';$this->str_lastpage = '尾页';
         }else if (preg_match("/zh/i", $lang)){
@@ -114,7 +120,7 @@ class pager
     function getfirstpage()
     {
         if($this->pagenow == 1){
-        	return $this->_get_link($this->_get_url('#', true),$this->str_firstpage,$this->css_disable);
+        	return $this->_get_link($this->_get_url('javascript:void(0);', true),$this->str_firstpage,$this->css_disable);
         }
         return $this->_get_link($this->_get_url(),$this->str_firstpage,$this->css_normal,'id="page_first"');
     }
@@ -125,7 +131,7 @@ class pager
         if($this->pagenow > 1){
             return $this->_get_link($this->_get_url($this->pagenow - 1),$this->str_prevpage,$this->css_normal,'id="page_prev"');
         }
-        return $this->_get_link($this->_get_url('#', true),$this->str_prevpage,$this->css_disable);
+        return $this->_get_link($this->_get_url('javascript:void(0);', true),$this->str_prevpage,$this->css_disable);
     }
     
     //下一页
@@ -135,14 +141,14 @@ class pager
         {
             return $this->_get_link($this->_get_url($this->pagenow + 1),$this->str_nextpage,$this->css_normal,'id="page_next"');
         }
-        return $this->_get_link($this->_get_url('#', true),$this->str_nextpage,$this->css_disable);
+        return $this->_get_link($this->_get_url('javascript:void(0);', true),$this->str_nextpage,$this->css_disable);
     }
     
     //最尾页
     function getlastpage()
     {
         if($this->pagenow == $this->totalpages){
-        	return $this->_get_link($this->_get_url('#', true),$this->str_lastpage,$this->css_disable);
+        	return $this->_get_link($this->_get_url('javascript:void(0);', true),$this->str_lastpage,$this->css_disable);
         }
         return $this->_get_link($this->_get_url($this->totalpages),$this->str_lastpage,$this->css_normal,'id="page_last"');
     }
@@ -162,7 +168,7 @@ class pager
                 if($i != $this->pagenow){
                 	$return .= $this->_get_link($this->_get_url($i),$i,$this->css_normal);
                 }else{
-                	$return .= $this->_get_link($this->_get_url($i.'#', true),$i,$this->css_active);
+                	$return .= $this->_get_link($this->_get_url($i.'javascript:void(0);', true),$i,$this->css_active);
                 }
             }else{
                 break;
@@ -203,11 +209,11 @@ class pager
 
     function _get_url($pageno = 1, $isself = false)
     {
-        if($isself == true)	return '#'; //如果是本页,判断是true,修复id62下50页pageno=0时候,返回的情况
+        if($isself == true)	return 'javascript:void(0);'; //如果是本页,判断是true,修复id62下50页pageno=0时候,返回的情况
         if(function_exists('id62')){
-            return url(null,array($this->page_var=>id62($pageno)));
+            return url(null,[$this->page_var=>id62($pageno)]);
         }
-        return url(null,array($this->page_var=>$pageno));
+        return url(null,[$this->page_var=>$pageno]);
     }
 	
     //内部函数，获取连接

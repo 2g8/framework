@@ -1,8 +1,11 @@
 <?php
 
+#[AllowDynamicProperties]
 class conf
 {
 	protected static $autofind,$autofindpathes;
+    public $mode,$app,$uri,$db,$view,$session,$autoload,$reloadr;
+
 	public function __construct($config){
 		//设置默认framework config
 		$configfile = require(TEA_PATH.'/config.php');
