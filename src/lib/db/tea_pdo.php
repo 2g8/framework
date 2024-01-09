@@ -33,7 +33,7 @@ class tea_pdo extends PDO
 		parent::quote($sql);
 		$res = parent::query($sql) or debug::error("SQL Error",implode(", ",$this->errorInfo())."<hr />$sql");
         if(strpos($sql,'session') === false){
-            $GLOBALS['TEA_QUERY_NUMS'] += 1; //ÅÅ³ıµôsession²Ù×÷Êı¾İ¿â
+            $GLOBALS['TEA_QUERY_NUMS'] += 1; //æ’é™¤æ‰sessionæ“ä½œæ•°æ®åº“
         }
 		return $res;
 	}

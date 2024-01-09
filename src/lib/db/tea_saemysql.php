@@ -28,7 +28,7 @@ class tea_saemysql implements idb
 	{
 		$cmd = trim(strtoupper(substr($sql, 0, strpos($sql, ' '))));
         if(strpos($sql,'session') === false){
-            $GLOBALS['TEA_QUERY_NUMS'] += 1; //ÅÅ³ýµôsession²Ù×÷Êý¾Ý¿â
+            $GLOBALS['TEA_QUERY_NUMS'] += 1; //æŽ’é™¤æŽ‰sessionæ“ä½œæ•°æ®åº“
         }
 		if ($cmd === 'SELECT') {
 			$res = $this->conn->getData($sql);

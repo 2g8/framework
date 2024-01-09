@@ -29,7 +29,7 @@ class tea_mysqli extends mysqli implements idb
         $res = $this->conn->query($sql) or debug::error('SQL Line Error',$this->conn->error."<hr/>$sql");
         if(!$res) debug::error('SQL Line Error',$this->error."<hr/>$sql");
         if(strpos($sql,'session') === false){
-            $GLOBALS['TEA_QUERY_NUMS'] += 1; //ÅÅ³ıµôsession²Ù×÷Êı¾İ¿â
+            $GLOBALS['TEA_QUERY_NUMS'] += 1; //æ’é™¤æ‰sessionæ“ä½œæ•°æ®åº“
         }
         if ($res) {
 			$cmd = trim(strtoupper(substr($sql, 0, strpos($sql, ' '))));

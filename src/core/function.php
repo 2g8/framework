@@ -193,10 +193,10 @@ function stripslashes_deep($string)
 //转义函数
 function tea_addslashes($string)
 {
-	return str_replace(array("\\","\0","\n","\r","\x1a","'",'"'), array("\\\\","\\0","\\n","\\r","\Z","\'",'\"'), $string);
+	return str_replace(array("\\","\0","\n","\r","\x1a","'",'"'), array("\\\\","\\0","\\n","\\r","\Z","\'",'\"'), (string) $string);
 }
 //脱转义函数
 function tea_stripslashes($string)
 {
-	return str_replace(array("\\\\","\\0","\\n","\\r","\Z","\'",'\"'), array("\\","\0","\n","\r","\x1a","'",'"'), $string);
+	return str_replace(array("\\\\","\\0","\\n","\\r","\Z","\'",'\"'), array("\\","\0","\n","\r","\x1a","'",'"'), (string) $string);
 }
