@@ -19,7 +19,7 @@ date_default_timezone_set('PRC');
 
 class tea
 {
-	public $load,$conf,$model,$db,$view,$debug,$uri,$session;
+	public $load,$conf,$model,$db,$view,$debug,$uri,$session,$api;
     
     public function __construct($config = []){
     	//初始化loader
@@ -48,8 +48,6 @@ class tea
         //初始化框架环境
         $this->conf->app['controller_path'] = !empty($this->conf->app['controller_path']) ? $this->conf->app['controller_path'] : APP_PATH.'/controller';
         $this->_is_dir($this->conf->app['controller_path']) or $this->debug->error("Tea Framework Error","Controller Path doesn't exist : ".$this->conf->app['controller_path']);
-        //进行路由
-        $this->uri = $this->load->classes('core.uri',TEA_PATH,$this->conf->uri);
 	}
 	
 	//初始化类
@@ -89,6 +87,11 @@ class tea
 		            $this->session->start();
 		        }
 		        break;
+            case 'api':
+                if($this->api === NULL){
+                    $this->api = $this->load->classes('core.api',TEA_PATH, $this->conf->api);
+                }
+                break;
 		    case 'view':
 		        if($this->view === NULL){
 		            $this->view = $this->load->classes('core.view',TEA_PATH, $this->conf->view);
@@ -114,6 +117,8 @@ class tea
 	public function run($teaphp_autoroute = ''){
 		//初始化框架autoload
         $this->init($this->conf->autoload);
+        //进行路由
+        $this->uri = $this->load->classes('core.uri',TEA_PATH,$this->conf->uri);
         //获取CAP
 		$route = $this->uri->cap;
 		//如果autostart为真，加载并执行请求的CA

@@ -11,6 +11,11 @@ return array(
 		'model_path' => APP_PATH.'/model', 				// 用户模型程序的路径定义
 		'cache_path' => APP_PATH.'/data/cache', 		// 框架临时文件夹目录
 	),
+
+    'api' => array(										// API配置
+        'uri' => '/api/', 	                            // API访问路径定义
+        'path' => '/api', 	                            // API控制器程序的路径定义
+    ),
 	
 	//路由
 	'uri' => array(  									// 路由配置

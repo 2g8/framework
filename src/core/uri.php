@@ -461,6 +461,7 @@ class uri
     }
 
     public function _get_basepath($path){
+        if(defined('BASE_PATH')) return BASE_PATH;
         $pwd = str_replace("\\",'/',str_replace("../",'/',APP_PATH));
         $pwd = preg_replace("/\/+/",'/', $pwd);
         $pwd = explode('/',$pwd);
