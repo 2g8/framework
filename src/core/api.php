@@ -43,19 +43,19 @@ class api
     //get auth token
     function get_auth(){
         //auth in headers
-        $headers = getallheaders();
-        if (array_key_exists('Authorization', $headers)) {
-            if (substr($headers['Authorization'], 0, 6) == 'Basic ') {
+        $headers = array_change_key_case(getallheaders(),CASE_LOWER);
+        if (array_key_exists('authorization', $headers)) {
+            if (substr($headers['authorization'], 0, 6) == 'Basic ') {
                 $this->auth['type'] = 'basic';
-                $this->auth['token'] = trim(substr($headers['Authorization'], 6));
+                $this->auth['token'] = trim(substr($headers['authorization'], 6));
             }
-            if (substr($headers['Authorization'], 0, 6) == 'Token ') {
+            if (substr($headers['authorization'], 0, 6) == 'Token ') {
                 $this->auth['type'] = 'token';
-                $this->auth['token'] = trim(substr($headers['Authorization'], 6));
+                $this->auth['token'] = trim(substr($headers['authorization'], 6));
             }
-            if (substr($headers['Authorization'], 0, 7) == 'Bearer ') {
+            if (substr($headers['authorization'], 0, 7) == 'Bearer ') {
                 $this->auth['type'] = 'bearer';
-                $this->auth['token'] = trim(substr($headers['Authorization'], 7));
+                $this->auth['token'] = trim(substr($headers['authorization'], 7));
             }
         }
         return $this->auth ?? false;
@@ -63,42 +63,42 @@ class api
 
     //get app id
     function get_app_id(){
-        $headers = getallheaders();
-        if (array_key_exists('X-App-Id', $headers)) {
-            $this->appid['type'] = 'X-App-Id_in_header';
-            $this->appid['appid'] = $headers['X-App-Id'];
+        $headers = array_change_key_case(getallheaders(),CASE_LOWER);
+        if (array_key_exists('x-app-id', $headers)) {
+            $this->appid['type'] = 'x-app-id_in_header';
+            $this->appid['appid'] = $headers['x-app-id'];
         }
-        $cookie = array_change_key_case($_COOKIE,CASE_LOWER);
-        if (array_key_exists('x-app-id', $cookie)) {
+        $cookies = array_change_key_case($_COOKIE,CASE_LOWER);
+        if (array_key_exists('x-app-id', $cookies)) {
             $this->appid['type'] = 'x-app-id_in_cookie';
-            $this->appid['appid'] = $cookie['x-app-id'];
+            $this->appid['appid'] = $cookies['x-app-id'];
         }
-        $query = array_change_key_case($_REQUEST,CASE_LOWER);
-        if (array_key_exists('x-app-id', $query)) {
+        $querys = array_change_key_case($_REQUEST,CASE_LOWER);
+        if (array_key_exists('x-app-id', $querys)) {
             $this->appid['type'] = 'x-app-id_in_query';
-            $this->appid['appid'] = $query['x-app-id'];
+            $this->appid['appid'] = $querys['x-app-id'];
         }
         return $this->appid ?? false;
     }
 
     //get api key
     function get_api_key(){
-        $headers = getallheaders();
-        if (array_key_exists('X-Api-Key', $headers)) {
+        $headers = array_change_key_case(getallheaders(),CASE_LOWER);
+        if (array_key_exists('x-api-key', $headers)) {
             $this->apikey['type'] = 'x-api-key_in_header';
-            $this->apikey['apikey'] = $headers['X-Api-Key'];
+            $this->apikey['apikey'] = $headers['x-api-key'];
         }
         //apikey in cookie
-        $cookie = array_change_key_case($_COOKIE,CASE_LOWER);
-        if (array_key_exists('x-api-key', $cookie)) {
+        $cookies = array_change_key_case($_COOKIE,CASE_LOWER);
+        if (array_key_exists('x-api-key', $cookies)) {
             $this->apikey['type'] = 'x-api-key_in_cookie';
-            $this->apikey['apikey'] = $cookie['x-api-key'];
+            $this->apikey['apikey'] = $cookies['x-api-key'];
         }
         //apikey in query
-        $query = array_change_key_case($_REQUEST,CASE_LOWER);
-        if (array_key_exists('x-api-key', $query)) {
+        $querys = array_change_key_case($_REQUEST,CASE_LOWER);
+        if (array_key_exists('x-api-key', $querys)) {
             $this->apikey['type'] = 'x-api-key_in_query';
-            $this->apikey['apikey'] = $query['x-api-key'];
+            $this->apikey['apikey'] = $querys['x-api-key'];
         }
         return $this->apikey ?? false;
     }
