@@ -15,6 +15,11 @@ return array(
     'api' => array(										// API配置
         'uri' => '/api/', 	                            // API访问路径定义
         'path' => '/api', 	                            // API控制器程序的路径定义
+        'access-control-allow-origin' => '*', 	        // 请求控制 域
+        'access-control-allow-credentials' => 'true', 	        // 请求控制 cookie
+        'access-control-allow-methods' => 'PUT, GET, POST, PATCH, DELETE, OPTIONS', 	        // 请求控制 方法
+        'access-control-allow-headers' => 'X-Requested-With, Authorization, Content-Type, X-Api-Key, X-App-Id', 	        // 请求控制 头
+        'access-control-max-age' => '86400', 	            // 请求控制 过期时间
     ),
 	
 	//路由
